@@ -15,10 +15,10 @@ from seq2seq.dataset import SourceField, TargetField
 from seq2seq.evaluator import Predictor
 from seq2seq.util.checkpoint import Checkpoint
 
-#try:
-#    raw_input          # Python 2
-#except NameError:
-#    raw_input = input  # Python 3
+try:
+    raw_input          # Python 2
+except NameError:
+    raw_input = input  # Python 3
 
 # Sample usage:
 #     # training
@@ -130,9 +130,9 @@ else:
 
 predictor = Predictor(seq2seq, input_vocab, output_vocab)
 
-"""
+
 while True:
     seq_str = raw_input("Type in a source sequence:")
     seq = seq_str.strip().split()
     print(predictor.predict(seq))
-"""
+
