@@ -46,7 +46,8 @@ class SupervisedTrainer(object):
             os.makedirs(self.expt_dir)
         self.batch_size = batch_size
 
-        self.logger = logging.getLogger(__name__)
+        #self.logger = logging.getLogger(__name__)
+        self.logger = logging.getLogger(logging.INFO)
 
     def _train_batch(self, input_variable, input_lengths, target_variable, model, teacher_forcing_ratio):
         loss = self.loss
