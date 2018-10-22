@@ -47,11 +47,11 @@ parser.add_argument('--log-level', dest='log_level',
 opt = parser.parse_args()
 
 LOG_FORMAT = '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
-logging.basicConfig(format=LOG_FORMAT, level=getattr(logging, opt.log_level.upper()))
-logging.info(opt)
+#logging.basicConfig(format=LOG_FORMAT, level=getattr(logging, opt.log_level.upper()))
+#logging.info(opt)
 
 if opt.load_checkpoint is not None:
-    logging.info("loading checkpoint from {}".format(os.path.join(opt.expt_dir, Checkpoint.CHECKPOINT_DIR_NAME, opt.load_checkpoint)))
+    #logging.info("loading checkpoint from {}".format(os.path.join(opt.expt_dir, Checkpoint.CHECKPOINT_DIR_NAME, opt.load_checkpoint)))
     checkpoint_path = os.path.join(opt.expt_dir, Checkpoint.CHECKPOINT_DIR_NAME, opt.load_checkpoint)
     checkpoint = Checkpoint.load(checkpoint_path)
     seq2seq = checkpoint.model

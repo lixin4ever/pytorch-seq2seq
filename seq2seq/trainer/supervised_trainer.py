@@ -48,6 +48,7 @@ class SupervisedTrainer(object):
         self.batch_size = batch_size
 
         self.logger = logging.getLogger(__name__)
+        self.logger.info("In the SupervisedTrainer")
         #self.logger = logging.getLogger(logging.INFO)
 
     def _train_batch(self, input_variable, input_lengths, target_variable, model, teacher_forcing_ratio):
@@ -116,7 +117,7 @@ class SupervisedTrainer(object):
                         step / total_steps * 100,
                         self.loss.name,
                         print_loss_avg)
-                    log.info(log_msg)
+                    #log.info(log_msg)
 
                 # Checkpoint
                 if step % self.checkpoint_every == 0 or step == total_steps:
@@ -139,7 +140,7 @@ class SupervisedTrainer(object):
             else:
                 self.optimizer.update(epoch_loss_avg, epoch)
 
-            log.info(log_msg)
+            #log.info(log_msg)
 
     def train(self, model, data, num_epochs=5,
               resume=False, dev_data=None,
@@ -183,7 +184,7 @@ class SupervisedTrainer(object):
                 optimizer = Optimizer(optim.Adam(model.parameters()), max_grad_norm=5)
             self.optimizer = optimizer
 
-        self.logger.info("Optimizer: %s, Scheduler: %s" % (self.optimizer.optimizer, self.optimizer.scheduler))
+        #self.logger.info("Optimizer: %s, Scheduler: %s" % (self.optimizer.optimizer, self.optimizer.scheduler))
 
         self._train_epoches(data, model, num_epochs,
                             start_epoch, step, dev_data=dev_data,
