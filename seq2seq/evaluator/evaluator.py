@@ -5,6 +5,7 @@ import torchtext
 
 import seq2seq
 from seq2seq.loss import NLLLoss
+from torchnlp.metrics import get_moses_multi_bleu
 
 class Evaluator(object):
     """ Class to evaluate models with given datasets.
@@ -43,9 +44,14 @@ class Evaluator(object):
         tgt_vocab = data.fields[seq2seq.tgt_field_name].vocab
         pad = tgt_vocab.stoi[data.fields[seq2seq.tgt_field_name].pad_token]
 
+        hypotheses, references = [], []
         with torch.no_grad():
             for batch in batch_iterator:
-                input_variables, input_lengths  = getattr(batch, seq2seq.src_field_name)
+                # obtain input variables and input lengths
+                # shape: (bs, lens) and (bs,)
+                input_variables, input_lengths = getattr(batch, seq2seq.src_field_name)
+                # obtain target sentences
+                # shape: (bs, lens)
                 target_variables = getattr(batch, seq2seq.tgt_field_name)
 
                 decoder_outputs, decoder_hidden, other = model(input_variables, input_lengths.tolist(), target_variables)
@@ -61,9 +67,14 @@ class Evaluator(object):
                     match += correct
                     total += non_padding.sum().item()
 
+                    hypotheses.extend(step_output.view(target_variables.size(0), -1).tolist())
+                    references.extend(target.tolist())
+
         if total == 0:
             accuracy = float('nan')
         else:
             accuracy = match / total
 
-        return loss.get_loss(), accuracy
+        bleu = get_moses_multi_bleu(hypotheses, references)
+
+        return loss.get_loss(), accuracy, bleu
