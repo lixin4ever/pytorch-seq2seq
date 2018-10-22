@@ -47,8 +47,8 @@ class SupervisedTrainer(object):
             os.makedirs(self.expt_dir)
         self.batch_size = batch_size
 
-        self.logger = logging.getLogger(__name__)
-        self.logger.info("In the SupervisedTrainer")
+        #self.logger = logging.getLogger(__name__)
+        #self.logger.info("In the SupervisedTrainer")
         #self.logger = logging.getLogger(logging.INFO)
 
     def _train_batch(self, input_variable, input_lengths, target_variable, model, teacher_forcing_ratio):
@@ -70,7 +70,7 @@ class SupervisedTrainer(object):
 
     def _train_epoches(self, data, model, n_epochs, start_epoch, start_step,
                        dev_data=None, teacher_forcing_ratio=0):
-        log = self.logger
+        #log = self.logger
 
         print_loss_total = 0  # Reset every print_every
         epoch_loss_total = 0  # Reset every epoch
@@ -89,7 +89,7 @@ class SupervisedTrainer(object):
         step_elapsed = 0
         print("Test!!!")
         for epoch in range(start_epoch, n_epochs + 1):
-            log.debug("Epoch: %d, Step: %d" % (epoch, step))
+            #log.debug("Epoch: %d, Step: %d" % (epoch, step))
 
             batch_generator = batch_iterator.__iter__()
             # consuming seen batches from previous training
@@ -113,10 +113,10 @@ class SupervisedTrainer(object):
                 if step % self.print_every == 0 and step_elapsed > self.print_every:
                     print_loss_avg = print_loss_total / self.print_every
                     print_loss_total = 0
-                    log_msg = 'LIXIN-Progress: %d%%, Train %s: %.4f' % (
-                        step / total_steps * 100,
-                        self.loss.name,
-                        print_loss_avg)
+                    #log_msg = 'LIXIN-Progress: %d%%, Train %s: %.4f' % (
+                    #    step / total_steps * 100,
+                    #    self.loss.name,
+                    #    print_loss_avg)
                     #log.info(log_msg)
 
                 # Checkpoint
