@@ -28,6 +28,7 @@ class SupervisedTrainer(object):
     def __init__(self, expt_dir='experiment', loss=NLLLoss(), batch_size=64,
                  random_seed=None,
                  checkpoint_every=100, print_every=100):
+        print("----------In the SupervisedTrainer----------")
         self._trainer = "Simple Trainer"
         self.random_seed = random_seed
         if random_seed is not None:
@@ -46,8 +47,8 @@ class SupervisedTrainer(object):
             os.makedirs(self.expt_dir)
         self.batch_size = batch_size
 
-        #self.logger = logging.getLogger(__name__)
-        self.logger = logging.getLogger(logging.INFO)
+        self.logger = logging.getLogger(__name__)
+        #self.logger = logging.getLogger(logging.INFO)
 
     def _train_batch(self, input_variable, input_lengths, target_variable, model, teacher_forcing_ratio):
         loss = self.loss
@@ -111,7 +112,7 @@ class SupervisedTrainer(object):
                 if step % self.print_every == 0 and step_elapsed > self.print_every:
                     print_loss_avg = print_loss_total / self.print_every
                     print_loss_total = 0
-                    log_msg = 'Progress: %d%%, Train %s: %.4f' % (
+                    log_msg = 'LIXIN-Progress: %d%%, Train %s: %.4f' % (
                         step / total_steps * 100,
                         self.loss.name,
                         print_loss_avg)
@@ -158,6 +159,7 @@ class SupervisedTrainer(object):
         Returns:
             model (seq2seq.models): trained model.
         """
+        print("In SupervisedTrainer.train...")
         # If training is set to resume
         if resume:
             latest_checkpoint_path = Checkpoint.get_latest_checkpoint(self.expt_dir)

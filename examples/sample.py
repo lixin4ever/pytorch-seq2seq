@@ -58,6 +58,7 @@ if opt.load_checkpoint is not None:
     input_vocab = checkpoint.input_vocab
     output_vocab = checkpoint.output_vocab
 else:
+
     # Prepare dataset
     src = SourceField()
     tgt = TargetField()
@@ -122,6 +123,7 @@ else:
                           checkpoint_every=5000,
                           print_every=10, expt_dir=opt.expt_dir)
 
+    print("Begin model training...")
     seq2seq = t.train(seq2seq, train,
                       num_epochs=6, dev_data=dev,
                       optimizer=optimizer,
