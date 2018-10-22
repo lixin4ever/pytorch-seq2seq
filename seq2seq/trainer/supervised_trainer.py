@@ -84,6 +84,7 @@ class SupervisedTrainer(object):
 
         step = start_step
         step_elapsed = 0
+        print("Test!!!")
         for epoch in range(start_epoch, n_epochs + 1):
             log.debug("Epoch: %d, Step: %d" % (epoch, step))
 
